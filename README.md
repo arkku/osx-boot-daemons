@@ -33,10 +33,31 @@ To install bootparamd as a system daemon on OS X, follow these steps:
     sudo launchctl load -w /Library/LaunchDaemons/com.arkku.bootparamd.plist
 
 Edit the .plist to configure arguments, and place your boot parameters
-file as /etc/bootparams (see
+file as `/etc/bootparams` (see
 [bootparams(5)](http://www.unix.com/man-page/freebsd/5/bootparams/) for the
 file format).
 
+An example `/etc/bootparams` file for netbooting an SGI machine would be:
+
+```
+# SGI Indy
+indy    root=server:/exports/indy/root \
+        swap=server:/exports/indy/swap
+```
+
+Here `indy` is the hostname of the machine being booted, `server` is the
+hostname of the NFS server, and `/exports/indy` is a path on the server
+that is being exported via NFS. The directory `root` should contain the
+filesystem for the client, while the directory `swap` should contain just
+a file called `_swap` that is the size of the desired swap. A `bootparams`
+entry may specify any number of other parameters as well, the meaning of
+which depends on the system being booted.
+
+The installation may be tested with the included program `callbootp`, e.g.,
+`./callbootp 127.0.0.1 indy root` should print the root path when run on the
+server with the above `/etc/bootparams`. (In my experience the `callbootp`
+program is a bit unreliable, so try booting the actual client machine even
+if the test doesn't work.)
 
 rarpd
 =====
@@ -44,26 +65,28 @@ rarpd
 Mac OS X does still ship with rarpd, but unfortunately the included
 rarpd effectively needs to be run as root and it only serves requests
 for hosts that have a bootfile matching their hexadecimal IP address
-in /tftpboot on the system. So, I took the source code of Apple's
+in `/tftpboot` on the system. So, I took the source code of Apple's
 rarpd and modified it with the following changes:
 
-* support argument -e to respond to every RARP request, i.e.,
-  skip checking for /tftpboot for files named after the IP
+* support argument `-e` to respond to every RARP request, i.e.,
+  skip checking for `/tftpboot` for files named after the IP
   address of the machine requesting RARP (the original purpose
   of this check is to allow multiple RARP servers on the same
   network, each responding only to requests for hosts it has
   a netboot file for)
 
-* add command-line option "-u user" to drop root privileges
-  after setting up the daemon (e.g., rarpd -u nobody en0)
+* add command-line option `-u user` to drop root privileges
+  after setting up the daemon (e.g., `rarpd -u nobody en0`)
 
-* add command-line option "-c /dir" to chroot to the directory
+* add command-line option `-c /directory` to chroot to the directory
   after setting up the daemon - note that the new root must still
   contain /etc and the files required to resolve the requests,
-  so the intended use is "-c /private" on OS X
+  so the intended use is `-c /private` on OS X
 
-* add command-line option "-t /dir" to specify a tftpboot
-  directory other than /tftpboot (e.g., rarpd -a -t /private/tftpboot)
+* add command-line option `-t /directory` to specify a tftpboot
+  directory other than the default `/tftpboot` where to search for
+  netboot files (when `-e` is not specified), e.g.,
+  `rarpd -t /private/tftpboot`
 
 
 Installing rarpd
@@ -78,5 +101,5 @@ To install rarpd as a system daemon on OS X, follow these steps:
     sudo launchctl load -w /Library/LaunchDaemons/com.arkku.rarpd.plist
 
 Edit the .plist to configure arguments. For the daemon to actually serve any
-requests, create /etc/ethers to specify mappings from ethernet addresses to
-hostnames, and edit /etc/hosts to map those hostnames to IPv4 addresses.
+requests, create `/etc/ethers` to specify mappings from ethernet addresses to
+hostnames, and edit `/etc/hosts` to map those hostnames to IPv4 addresses.
