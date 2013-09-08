@@ -42,7 +42,7 @@
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
 /*
- * Minor modifications by Kimmo Kulovesi <http://arkku.com/> in 2013:
+ * Minor modifications by Kimmo Kulovesi <http://arkku.com/> 2013-09-08:
  *  - add flag -e (or -b) to skip bootability check
  *  - add flag -c dir to chroot to dir before main loop
  *      (note that the dir needs to contain /etc/ethers and /tftpboot,
@@ -171,13 +171,13 @@ int main(int argc, char **argv) {
             ++bflag;
             break;
         case 'c':
-            rootdir = strdup(optarg);
+            rootdir = optarg;
             break;
         case 'u':
-            username = strdup(optarg);
+            username = optarg;
             break;
         case 't':
-            tftp_dir = strdup(optarg);
+            tftp_dir = optarg;
             break;
         default:
             usage();
