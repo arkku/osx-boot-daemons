@@ -28,7 +28,7 @@ To install bootparamd as a system daemon on OS X, follow these steps:
 
     make bootparamd
     sudo mkdir -p /usr/local/sbin
-    sudo cp rarpd /usr/local/sbin/bootparamd
+    sudo cp bootparamd /usr/local/sbin/bootparamd
     sudo cp com.arkku.bootparamd.plist /Library/LaunchDaemons/
     sudo launchctl load -w /Library/LaunchDaemons/com.arkku.bootparamd.plist
 
