@@ -18,7 +18,7 @@ Current versions of Mac OS X do not support bootparams anymore, so I
 ported the FreeBSD bootparamd to OS X. It reads boot parameters from
 a bootparams file only (i.e., not from OS X netinfo like Apple's bootparamd).
 The daemon itself works just like the
-[FreeBSD rarpd](http://www.unix.com/man-page/freebsd/8/bootparamd/) does.
+[FreeBSD bootparamd](http://www.unix.com/man-page/freebsd/8/bootparamd/) does.
 
 
 Installing bootparamd
