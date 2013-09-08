@@ -53,9 +53,9 @@ a file called `_swap` that is the size of the desired swap. A `bootparams`
 entry may specify any number of other parameters as well, the meaning of
 which depends on the system being booted.
 
-The installation may be tested with the included program `callbootp`, e.g.,
-`./callbootp 127.0.0.1 indy root` should print the root path when run on the
-server with the above `/etc/bootparams`. (In my experience the `callbootp`
+The installation may be tested with the included program `callbootd`, e.g.,
+`./callbootd 127.0.0.1 indy root` should print the root path when run on the
+server with the above `/etc/bootparams`. (In my experience the `callbootd`
 program is a bit unreliable, so try booting the actual client machine even
 if the test doesn't work.)
 
