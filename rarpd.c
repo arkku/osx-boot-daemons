@@ -42,14 +42,15 @@
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
 /*
- * Minor modifications by Kimmo Kulovesi <http://arkku.com/> 2013-09-08:
+ * Modifications by Kimmo Kulovesi <http://arkku.com/> 2013-09-08:
+ *  - add flag -u user to drop root priviliges and run as user
  *  - add flag -e (or -b) to skip bootability check
  *  - add flag -c dir to chroot to dir before main loop
  *      (note that the dir needs to contain /etc/ethers and /tftpboot,
  *       but this is fulfilled by /private in OS X)
  *  - add flag -t dir to specify tftp directory (default /tftpboot)
- *  - get rid of some warnings and format as ANSI C
  *  - add informative debug messages (when flag -d is used)
+ *  - get rid of some warnings and format as ANSI C
  */
 char copyright[] = "@(#) Copyright (c) 1990 The Regents of the University of California.\n\
  All rights reserved.\n";
