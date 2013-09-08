@@ -1,5 +1,6 @@
 *.o
 rarpd
 bootparamd
-bootparam_prot_???.c
+callbootd
+bootparam_prot_*.c
 bootparam_prot.h
