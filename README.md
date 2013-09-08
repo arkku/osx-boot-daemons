@@ -1,8 +1,12 @@
 Here are a couple of daemons useful for netbooting old hardware such as
-Sun and Silicon Graphics workstations from an OS X server. SGI machines
+Sun and Silicon Graphics workstations from a modern OS X server. SGI machines
 generally need bootparamd, and old Sun machines (e.g., SparcStations) need
 rarpd. To actually boot them you'll need to set up tftp, DHCP/BOOTP and NFS,
 but those do not need custom daemons (though I recommend dnsmasq).
+
+These programs have only been tested on my 10.8 Mountain Lion server so far,
+but they do work for netbooting an SGI Indy and a Sun SparcStation 5. However,
+as always, use at your own risk only.
 
 - [Kimmo Kulovesi](http://arkku.com/), 2013-09-08
 
