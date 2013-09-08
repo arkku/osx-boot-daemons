@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.arkku.bootparamd</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/usr/local/sbin/bootparamd</string>
+      <string>-f</string>
+      <string>/etc/bootparams</string>
+      <string>-d</string>
+    </array>
+    <key>UserName</key>
+    <string>nobody</string>
+    <key>KeepAlive</key>
+    <dict>
+      <key>NetworkState</key>
+      <true/>
+      <key>PathState</key>
+      <dict>
+          <key>/etc/bootparams</key>
+          <true/>
+      </dict>
+    </dict>
+  </dict>
+</plist>
