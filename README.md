@@ -8,7 +8,7 @@ These programs have only been tested on my 10.8 Mountain Lion server so far,
 but they do work for netbooting an SGI Indy and a Sun SparcStation 5. However,
 as always, use at your own risk only.
 
-- [Kimmo Kulovesi](http://arkku.com/), 2013-09-08
+~ [Kimmo Kulovesi](http://arkku.com/), 2013-09-08
 
 
 bootparamd
@@ -59,14 +59,15 @@ server with the above `/etc/bootparams`. (In my experience the `callbootp`
 program is a bit unreliable, so try booting the actual client machine even
 if the test doesn't work.)
 
+
 rarpd
 =====
 
-Mac OS X does still ship with rarpd, but unfortunately the included
-rarpd effectively needs to be run as root and it only serves requests
+Mac OS X does still ship with `rarpd`, but unfortunately the included
+daemon effectively needs to be run as root and it only serves requests
 for hosts that have a bootfile matching their hexadecimal IP address
-in `/tftpboot` on the system. So, I took the source code of Apple's
-rarpd and modified it with the following changes:
+in the `/tftpboot` directory on the system. So, I took the source code
+of Apple's rarpd and modified it with the following changes:
 
 * support argument `-e` to respond to every RARP request, i.e.,
   skip checking for `/tftpboot` for files named after the IP
@@ -80,14 +81,14 @@ rarpd and modified it with the following changes:
 
 * add command-line option `-c /directory` to chroot to the directory
   after setting up the daemon - note that the new root must still
-  contain /etc and the files required to resolve the requests,
-  so the intended use is `-c /private` on OS X
+  contain `/etc` and the files required to resolve the requests,
+  so the intended use is `-c /private` on OS X where `/etc` symlinks
+  to `/private/etc`
 
 * add command-line option `-t /directory` to specify a tftpboot
   directory other than the default `/tftpboot` where to search for
   netboot files (when `-e` is not specified), e.g.,
   `rarpd -t /private/tftpboot`
-
 
 Installing rarpd
 ----------------
@@ -103,3 +104,14 @@ To install rarpd as a system daemon on OS X, follow these steps:
 Edit the .plist to configure arguments. For the daemon to actually serve any
 requests, create `/etc/ethers` to specify mappings from ethernet addresses to
 hostnames, and edit `/etc/hosts` to map those hostnames to IPv4 addresses.
+
+To test `rarpd` before installation, I recommend running it in debug mode in
+a terminal while booting the client machine, e.g., with the command line:
+
+    sudo ./rarpd -d -e -c /private -u nobody en0
+
+I added a bunch of debug messages to the program, so this should output all
+requests and responses. If you intend to run without the argument `-e`, you
+can also find out the names of the bootfiles `rarpd` looks for by looking
+at the debug messages (in case you are lazy and don't want to convert the
+client IP addresses to hexadecimal by hand).
