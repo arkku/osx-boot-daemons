@@ -18,6 +18,7 @@ static const char rcsid[] =
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
 #include <syslog.h>
 #include <unistd.h>
 #include <rpc/rpc.h>
@@ -39,7 +40,6 @@ struct sockaddr_in my_addr;
 char *bootpfile = "/etc/bootparams";
 
 extern int get_myaddress(struct sockaddr_in *);
-extern int my_daemon(int, int);
 extern  void bootparamprog_1();
 static void usage(void);
 
@@ -96,8 +96,26 @@ char **argv;
 	}
 
 	if (!debug) {
-	  if (my_daemon(0,0))
-	    err(1, "fork");
+            int fd;
+            switch (fork()) {
+                case 0:
+                    break;
+                case -1:
+                    err(1, "fork");
+                default:
+                    return 0;
+            }
+            if (setsid() == -1) {
+                err(1, "setsid");
+            }
+            (void)chdir("/");
+            if ((fd = open("/dev/null", O_RDWR, 0)) != -1) {
+		(void)dup2(fd, STDIN_FILENO);
+		(void)dup2(fd, STDOUT_FILENO);
+		(void)dup2(fd, STDERR_FILENO);
+		if (fd > 2)
+                    (void)close(fd);
+            }
 	}
 
 
