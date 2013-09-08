@@ -7,7 +7,10 @@ RPCSRC = bootparam_prot.x
 RPCGENSRC = bootparam_prot.h bootparam_prot_svc.c bootparam_prot_xdr.c
 RPCOBJS = bootparam_prot_svc.o bootparam_prot_xdr.o
 
-all: rarpd bootparam_prot.h bootparamd
+all: rarpd bootparamd
+
+bootparamd_main.o: bootparamd_main.c bootparam_prot.h
+bootparamd.o: bootparamd.c bootparam_prot.h
 
 rarpd: rarpd.o
 	$(CC) $(LDFLAGS) -o $@ $+
@@ -15,10 +18,7 @@ rarpd: rarpd.o
 bootparamd: bootparamd_main.o bootparamd.o $(RPCOBJS)
 	$(CC) $(LDFLAGS) -l rpcsvc -o $@ $+
 
-bootparam_main.o: bootparam_main.c bootparam_prot.h
-bootparamd.o: bootparamd.c bootparam_prot.h
-
-bootparam_prot.h: bootparam_prot.x
+bootparam_prot.h: $(RPCSRC)
 	$(RPCGEN) -C -h -o $@ $+
 
 bootparam_prot_svc.c: $(RPCSRC)
