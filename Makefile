@@ -11,11 +11,15 @@ all: rarpd bootparamd
 
 bootparamd_main.o: bootparamd_main.c bootparam_prot.h
 bootparamd.o: bootparamd.c bootparam_prot.h
+callbootd.o: callbootd.c bootparam_prot.h
 
 rarpd: rarpd.o
 	$(CC) $(LDFLAGS) -o $@ $+
 
 bootparamd: bootparamd_main.o bootparamd.o $(RPCOBJS)
+	$(CC) $(LDFLAGS) -l rpcsvc -o $@ $+
+
+callbootd: callbootd.o bootparam_prot_xdr.o bootparam_prot_clnt.o
 	$(CC) $(LDFLAGS) -l rpcsvc -o $@ $+
 
 bootparam_prot.h: $(RPCSRC)
@@ -25,11 +29,15 @@ bootparam_prot_svc.c: $(RPCSRC)
 	$(RPCGEN) -C -m -o $@ $+
 	@sed -i '' 's/syslog(\([^,]*,[ \t]*\)\([a-z]*\))/syslog(\1"%s", \2)/' $@
 
+bootparam_prot_clnt.c: $(RPCSRC)
+	$(RPCGEN) -C -l -o $@ $+
+	@sed -i '' 's/syslog(\([^,]*,[ \t]*\)\([a-z]*\))/syslog(\1"%s", \2)/' $@
+
 bootparam_prot_xdr.c: $(RPCSRC)
 	$(RPCGEN) -C -c -o $@ $+
 
 clean:
-	@rm -f rarpd.o bootparamd_main.o bootparamd.o $(RPCOBJS) $(RPCGENSRC)
+	@rm -f rarpd.o bootparamd_main.o bootparamd.o $(RPCOBJS) $(RPCGENSRC) bootparam_prot_clnt.o bootparam_prot_clnt.c callbootd.o
 
 distclean: clean
-	@rm -f rarpd bootparamd
+	@rm -f rarpd bootparamd callbootd
