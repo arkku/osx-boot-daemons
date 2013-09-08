@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.arkku.rarpd</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/usr/local/sbin/rarpd</string>
+      <string>-d</string>
+      <string>-e</string>
+      <string>-c</string>
+      <string>/private</string>
+      <string>-u</string>
+      <string>nobody</string>
+      <string>en0</string>
+    </array>
+    <key>KeepAlive</key>
+    <dict>
+      <key>NetworkState</key>
+      <true/>
+      <key>PathState</key>
+      <dict>
+          <key>/etc/ethers</key>
+          <true/>
+      </dict>
+    </dict>
+  </dict>
+</plist>
