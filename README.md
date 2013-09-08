@@ -7,8 +7,8 @@ but those do not need custom daemons (though I recommend dnsmasq).
 - [Kimmo Kulovesi](http://arkku.com/), 2013-09-08
 
 
-    bootparamd
-    ==========
+bootparamd
+==========
 
 Current versions of Mac OS X do not support bootparams anymore, so I
 ported the FreeBSD bootparamd to OS X. It reads boot parameters from
@@ -17,8 +17,8 @@ The daemon itself works just like the
 [FreeBSD rarpd](http://www.unix.com/man-page/freebsd/8/bootparamd/) does).
 
 
-    Installing bootparamd
-    ---------------------
+Installing bootparamd
+---------------------
 
 To install bootparamd as a system daemon on OS X, follow these steps:
 
@@ -34,8 +34,8 @@ file as /etc/bootparams (see
 file format).
 
 
-    rarpd
-    =====
+rarpd
+=====
 
 Mac OS X does still ship with rarpd, but unfortunately the included
 rarpd effectively needs to be run as root and it only serves requests
@@ -62,8 +62,8 @@ rarpd and modified it with the following changes:
   directory other than /tftpboot (e.g., rarpd -a -t /private/tftpboot)
 
 
-    Installing rarpd
-    ----------------
+Installing rarpd
+----------------
 
 To install rarpd as a system daemon on OS X, follow these steps:
 
