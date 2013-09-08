@@ -4,7 +4,7 @@ generally need bootparamd, and old Sun machines (e.g., SparcStations) need
 rarpd. To actually boot them you'll need to set up tftp, DHCP/BOOTP and NFS,
 but those do not need custom daemons (though I recommend dnsmasq).
 
-- Kimmo Kulovesi, http://arkku.com/, 2013-09-08
+- [Kimmo Kulovesi](http://arkku.com/), 2013-09-08
 
 
     bootparamd
@@ -13,24 +13,24 @@ but those do not need custom daemons (though I recommend dnsmasq).
 Current versions of Mac OS X do not support bootparams anymore, so I
 ported the FreeBSD bootparamd to OS X. It reads boot parameters from
 a bootparams file only (i.e., not from OS X netinfo like Apple's bootparamd).
-The daemon itself works just like the FreeBSD one.
-
-http://www.unix.com/man-page/FreeBSD/8/bootparamd/
-http://www.unix.com/man-page/freebsd/5/bootparams/
+The daemon itself works just like the
+[FreeBSD rarpd](http://www.unix.com/man-page/freebsd/8/bootparamd/) does).
 
     Installing bootparamd
     ---------------------
 
-```
-make bootparamd
-sudo mkdir -p /usr/local/sbin
-sudo cp rarpd /usr/local/sbin/bootparamd
-sudo cp com.arkku.bootparamd.plist /Library/LaunchDaemons/
-# place your boot parameters in /etc/bootparams
+To install bootparamd as a system daemon on OS X, follow these steps:
 
-# edit parameters in .plist as necessary, then:
-sudo launchctl load -w /Library/LaunchDaemons/com.arkku.rarpd.plist
-```
+    make bootparamd
+    sudo mkdir -p /usr/local/sbin
+    sudo cp rarpd /usr/local/sbin/bootparamd
+    sudo cp com.arkku.bootparamd.plist /Library/LaunchDaemons/
+    sudo launchctl load -w /Library/LaunchDaemons/com.arkku.bootparamd.plist
+
+Edit the .plist to configure arguments, and place your boot parameters
+file as /etc/bootparams (see
+[bootparams(5)](http://www.unix.com/man-page/freebsd/5/bootparams/) for the
+file format).
 
     rarpd
     =====
@@ -62,13 +62,14 @@ rarpd and modified it with the following changes:
     Installing rarpd
     ----------------
 
-```
-make rarpd
-sudo mkdir -p /usr/local/sbin
-sudo cp rarpd /usr/local/sbin/rarpd
-sudo cp com.arkku.rarpd.plist /Library/LaunchDaemons/
-# place your ethernet address mappings in /etc/ethers
+To install rarpd as a system daemon on OS X, follow these steps:
 
-# edit parameters in .plist as necessary, then:
-sudo launchctl load -w /Library/LaunchDaemons/com.arkku.rarpd.plist
-```
+    make rarpd
+    sudo mkdir -p /usr/local/sbin
+    sudo cp rarpd /usr/local/sbin/rarpd
+    sudo cp com.arkku.rarpd.plist /Library/LaunchDaemons/
+    sudo launchctl load -w /Library/LaunchDaemons/com.arkku.rarpd.plist
+
+Edit the .plist to configure arguments. For the daemon to actually serve any
+requests, create /etc/ethers to specify mappings from ethernet addresses to
+hostnames, and edit /etc/hosts to map those hostnames to IPv4 addresses.
