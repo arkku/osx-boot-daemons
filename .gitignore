@@ -1,6 +1,5 @@
 *.o
-bootparam_prot_svc.c
-bootparam_prot_xdr.c
-bootparam_prot.h
-bootparamd
 rarpd
+bootparamd
+bootparam_prot_???.c
+bootparam_prot.h

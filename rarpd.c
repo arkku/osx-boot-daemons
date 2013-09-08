@@ -50,7 +50,8 @@
  *       but this is fulfilled by /private in OS X)
  *  - add flag -t dir to specify tftp directory (default /tftpboot)
  *  - add informative debug messages (when flag -d is used)
- *  - get rid of some warnings and format as ANSI C
+ *  - get rid of some warnings
+ *  - formatted as ANSI C (no more pre-ANSI argument lists)
  */
 char copyright[] = "@(#) Copyright (c) 1990 The Regents of the University of California.\n\
  All rights reserved.\n";

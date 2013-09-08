@@ -1,3 +1,6 @@
+#CC=gcc
+#CFLAGS=-m64 -Wall -ansi -pedantic -Os
+#LDFLAGS=
 RPCGEN = rpcgen
 
 RPCSRC = bootparam_prot.x
@@ -20,7 +23,7 @@ bootparam_prot.h: bootparam_prot.x
 
 bootparam_prot_svc.c: $(RPCSRC)
 	$(RPCGEN) -C -m -o $@ $+
-	sed -i '' 's/syslog(\([^,]*,[ \t]*\)\([a-z]*\))/syslog(\1"%s", \2)/' $@
+	@sed -i '' 's/syslog(\([^,]*,[ \t]*\)\([a-z]*\))/syslog(\1"%s", \2)/' $@
 
 bootparam_prot_xdr.c: $(RPCSRC)
 	$(RPCGEN) -C -c -o $@ $+

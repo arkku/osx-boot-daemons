@@ -5,6 +5,9 @@ use and modify. Please send modifications and/or suggestions + bug fixes to
 
         Klas Heggemann <klas@nada.kth.se>
 
+
+This version slightly modified for OS X port by Kimmo Kulovesi <arkku.com>
+
 */
 
 #ifndef lint
