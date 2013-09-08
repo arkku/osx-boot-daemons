@@ -21,15 +21,16 @@ http://www.unix.com/man-page/freebsd/5/bootparams/
     Installing bootparamd
     ---------------------
 
-    make bootparamd
-    sudo mkdir -p /usr/local/sbin
-    sudo cp rarpd /usr/local/sbin/bootparamd
-    sudo cp com.arkku.bootparamd.plist /Library/LaunchDaemons/
-    # place your boot parameters in /etc/bootparams
+```
+make bootparamd
+sudo mkdir -p /usr/local/sbin
+sudo cp rarpd /usr/local/sbin/bootparamd
+sudo cp com.arkku.bootparamd.plist /Library/LaunchDaemons/
+# place your boot parameters in /etc/bootparams
 
-    # edit parameters in .plist as necessary, then:
-    sudo launchctl load -w /Library/LaunchDaemons/com.arkku.rarpd.plist
-
+# edit parameters in .plist as necessary, then:
+sudo launchctl load -w /Library/LaunchDaemons/com.arkku.rarpd.plist
+```
 
     rarpd
     =====
@@ -61,12 +62,13 @@ rarpd and modified it with the following changes:
     Installing rarpd
     ----------------
 
-    make rarpd
-    sudo mkdir -p /usr/local/sbin
-    sudo cp rarpd /usr/local/sbin/rarpd
-    sudo cp com.arkku.rarpd.plist /Library/LaunchDaemons/
-    # place your ethernet address mappings in /etc/ethers
+```
+make rarpd
+sudo mkdir -p /usr/local/sbin
+sudo cp rarpd /usr/local/sbin/rarpd
+sudo cp com.arkku.rarpd.plist /Library/LaunchDaemons/
+# place your ethernet address mappings in /etc/ethers
 
-    # edit parameters in .plist as necessary, then:
-    sudo launchctl load -w /Library/LaunchDaemons/com.arkku.rarpd.plist
-
+# edit parameters in .plist as necessary, then:
+sudo launchctl load -w /Library/LaunchDaemons/com.arkku.rarpd.plist
+```
