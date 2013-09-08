@@ -16,6 +16,7 @@ a bootparams file only (i.e., not from OS X netinfo like Apple's bootparamd).
 The daemon itself works just like the
 [FreeBSD rarpd](http://www.unix.com/man-page/freebsd/8/bootparamd/) does).
 
+
     Installing bootparamd
     ---------------------
 
@@ -31,6 +32,7 @@ Edit the .plist to configure arguments, and place your boot parameters
 file as /etc/bootparams (see
 [bootparams(5)](http://www.unix.com/man-page/freebsd/5/bootparams/) for the
 file format).
+
 
     rarpd
     =====
@@ -58,6 +60,7 @@ rarpd and modified it with the following changes:
 
 * add command-line option "-t /dir" to specify a tftpboot
   directory other than /tftpboot (e.g., rarpd -a -t /private/tftpboot)
+
 
     Installing rarpd
     ----------------
