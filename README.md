@@ -4,9 +4,9 @@ generally need bootparamd, and old Sun machines (e.g., SparcStations) need
 rarpd. To actually boot them you'll need to set up tftp, DHCP/BOOTP and NFS,
 but those do not need custom daemons (though I recommend dnsmasq).
 
-These programs have only been tested on my 10.8 Mountain Lion server so far,
-but they do work for netbooting an SGI Indy and a Sun SparcStation 5. However,
-as always, use at your own risk only.
+These programs have only been tested on 10.8 Mountain Lion and 10.9 Mavericks 
+servers so far, but they do work for netbooting an SGI Indy and a Sun
+SparcStation 5… for me, at least. As always, use at your own risk only.
 
 ~ [Kimmo Kulovesi](http://arkku.com/), 2013-09-08
 
